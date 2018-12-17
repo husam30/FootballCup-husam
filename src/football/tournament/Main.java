@@ -16,20 +16,27 @@ public class Main {
         String[] amateurlPubList = {"Ace of Clubs", "Alibi Bar", "The Aidensfield Arm", "The Anchor"};
         String[] amateurlMascotList = {"The Jolly Kangaroo", "The Cheery Donkey", "The Brown Peafowl", "Twinkles"};
 
-        ArrayList<Professional> allprofessional = new ArrayList();
-        ArrayList<Amateur> allAmateur = new ArrayList();
+        ArrayList<Team> allTeam = new ArrayList();
 
         for (int i = 0; i < professionalListName.length; i++) {
-            allprofessional.add(new Professional(professionalListName[i],professionalSponsorListName[i],professionalBudgetList[i]));
+            allTeam.add(new Professional(professionalListName[i],professionalSponsorListName[i],professionalBudgetList[i]));
         }
         for (int i = 0; i < amateurlListName.length; i++) {
-            allAmateur.add(new Amateur(amateurlListName[i],amateurlPubList[i],amateurlMascotList[i]));
+            allTeam.add(new Amateur(amateurlListName[i],amateurlPubList[i],amateurlMascotList[i]));
         }
+
         Round round1 = new Round("One");
         Round round2 = new Round("Two");
         Round round3 = new Round("Three");
+        Round round4 = new Round("Four");
 
-        RoundController.startTournament(allprofessional,allAmateur);
+        RoundController.startTournament(allTeam);
+        ArrayList<Team> round1Winners = RoundController.roundResults(round1, allTeam);
+        ArrayList<Team> round2Winners = RoundController.roundResults(round2, round1Winners);
+        ArrayList<Team> round3Winners = RoundController.roundResults(round3, round2Winners);
+
+        RoundController.endTournament(round3Winners);
+
 
     }
 }
